@@ -42,21 +42,21 @@ class Solution {
     public int unvisitedLeaves(int N, int leaves, int frogs[]) {
         // Code here
         int not_visited = 0;
-        boolean visited_leaves[] =new boolean[leaves+1];
+        int visited_leaves[] =new int[leaves+1];
         
         for(int pos = 0; pos < N; pos++){
             int frog_position = frogs[pos];
-            if( frog_position <= leaves && !visited_leaves[frog_position]){
+            if( frog_position <= leaves && visited_leaves[frog_position] == 0){
                 for(int jumps = frog_position; jumps <= leaves ; jumps +=frog_position){
                     //System.out.print(j);
-                    visited_leaves[jumps] = true;
+                    visited_leaves[jumps] = 1;
                 }
                 
             }
         }
-        for(int i = 1; i <= leaves; i++){
-            
-            if(!visited_leaves[i]) {//System.out.print('1');
+        for(int pos = 1; pos <= leaves; pos++){
+            //System.out.print(visited_leaves[pos]);
+            if(visited_leaves[pos] == 0) {//System.out.print('1');
             not_visited++;}
         }
         return not_visited;
