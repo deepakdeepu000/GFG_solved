@@ -9,8 +9,18 @@ using namespace std;
 
 class Solution{
 public:
-    void solve(int N,vector<int> &v){
-        if(N <= 1) return;
+    vector<int> v;
+    int k = 0;
+    vector<int> jugglerSequence(int N){
+        // code here
+        if(k == 0){
+            v.push_back(N);
+            k = 1;
+        }
+        
+        if(N <= 1){
+            return v ;
+        }
         
         if(N%2 != 0){
             N = (int)N*sqrt(N);
@@ -20,14 +30,8 @@ public:
             N = (int)sqrt(N);
             v.push_back(N);
         }
-        solve(N,v);
+        jugglerSequence(N);
         
-    }
-    vector<int> jugglerSequence(int N){
-        // code here
-        vector<int> v;
-        v.push_back(N);
-        solve(N,v);
         return v;
     }
 };
