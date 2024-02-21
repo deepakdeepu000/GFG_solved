@@ -14,23 +14,29 @@ using namespace std;
 class Solution
 {
 public:
-    int wordBreak(int n, string s, vector<string> &dictionary) {
-        //code here
-        if(s.empty()) return 1;
+    bool Slices(int i, int start, string &s, vector<string> &dictionary, vector<int> &memo) {
+        if (i == s.size()) {
+            return true;
+        }
         
-        int len = s.size();
+        if (memo[i] != -1) {
+            return memo[i];
+        }
         
-        for(int i = 1 ; i <= len ; ++i){
-            string sub = s.substr(0,i);
-            if(find(dictionary.begin(),dictionary.end(),sub) != dictionary.end()){
-                if(wordBreak( n , s.substr(i) , dictionary)){
-                    return 1;
-                }
+        string word = "";
+        for (int j = i; j < s.size(); ++j) {
+            word += s[j];
+            if (find(dictionary.begin(),dictionary.end(),word) != dictionary.end() && Slices(j + 1, j + 1, s, dictionary, memo)) {
+                return memo[i] = 1;
             }
         }
-    
-   return 0;
         
+        return memo[i] = 0;
+    }
+    int wordBreak(int n, string s, vector<string> &dictionary) {
+        //code here
+        vector<int> memo(s.size()+1,-1);
+        return Slices( 0 , 0, s , dictionary, memo)? 1 : 0;;
     }
 };
 
