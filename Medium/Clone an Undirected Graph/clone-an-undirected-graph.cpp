@@ -108,21 +108,22 @@ bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unorder
 
 class Solution {
 public:
-    Node* clone(Node* root , unordered_map<int, Node*> &mp){
-        Node *nodeClone = new Node();
-        nodeClone-> val = root->val;
-        mp[root->val] = nodeClone;
-        vector<Node*> Cnbrs = vector<Node*>();
-        for(Node* nbr : root->neighbors){
-            if(mp.find(nbr -> val) != mp.end()){
-                Cnbrs.push_back(mp[nbr->val]);
+    Node* clone(Node *root , unordered_map < int , Node* > &mp){
+        Node *newNode = new Node();
+        newNode -> val = root -> val ;
+        mp[ root -> val ] = newNode ;
+        vector<Node *> MyNbrs = vector<Node*> ();
+        for(Node* nbrs : root -> neighbors ){
+            if(mp.find( nbrs -> val ) != mp.end()){
+                MyNbrs.push_back(mp[nbrs -> val] );
             }
             else{
-                Cnbrs.push_back(clone(nbr, mp));
+                MyNbrs.push_back(clone(nbrs,mp));
             }
         }
-        nodeClone-> neighbors = Cnbrs;
-        return nodeClone;
+        newNode -> neighbors = MyNbrs;
+        return newNode;
+        
     }
     Node* cloneGraph(Node* node) {
         if(node == NULL) return node;
