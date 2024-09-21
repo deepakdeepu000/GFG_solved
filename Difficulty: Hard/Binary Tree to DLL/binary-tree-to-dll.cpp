@@ -117,51 +117,52 @@ struct Node
 
 // This function should return head to the DLL
 class Solution {
-    private:
-     void DLL_G(Node* root){
-         if(root->left){
-             
+  private:
+    void DLL_G(Node * root){
+        if(root -> left){
             Node* prev = root->left;
             
-            while(prev ->right){
+            while(prev->right){
                 prev = prev -> right;
             }
             
             DLL_G(root->left);
             
-            prev->right = root;
+            prev -> right = root;
             root->left = prev;
-         }
-         
-         if(root -> right){
-             Node* next = root -> right;
-             
-             while(next -> left){
+            
+        }
+        
+        if(root->right){
+            Node* next = root->right;
+            
+            while(next->left){
                 next = next -> left;
-             }
-             
-             DLL_G(root->right);
-             
-             next -> left = root;
-             root->right = next;
-         }
-     }
+            }
+            
+            DLL_G(root->right);
+            
+            
+            next ->left = root;
+            root->right = next;
+        }
+    }
+    
   public:
     Node* bToDLL(Node* root) {
         // code here
-        if(root == nullptr){
+        if( root == nullptr){
             return root;
         }
         
         Node* head = root;
-        while(head -> left){
+        while(head->left){
             head = head -> left;
         }
         
         DLL_G(root);
         
         return head;
-        
     }
 };
 
