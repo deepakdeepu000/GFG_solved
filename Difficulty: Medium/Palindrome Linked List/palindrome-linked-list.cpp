@@ -38,6 +38,21 @@ struct Node {
 class Solution {
   public:
     // Function to check whether the list is palindrome.
+    Node* reverse(Node* head){
+        Node* prev = NULL;
+        Node* curr = head;
+        Node* next = NULL;
+        
+        while(curr != NULL){
+            next = curr -> next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+            
+        }
+        
+        return prev;
+    }
     bool isPalindrome(Node *head) {
         // Your code here
         
@@ -47,27 +62,40 @@ class Solution {
         
         while(fast and fast->next){
             fast = fast -> next -> next;
-            Node* temp = new Node(slow->data);
-            temp->next = check;
-            check = temp;
+            // Node* temp = new Node(slow->data);
+            // temp->next = check;
+            // check = temp;
             slow = slow -> next;
         }
         
-        if(fast){
-            slow = slow -> next;
-        }
+        Node* s_half = reverse(slow);
+        Node* f_half = head;
         
-        while(slow and check){
-            if(slow->data != check -> data){
+        Node* s_half_copy = s_half;
+        // if(fast){
+        //     slow = slow -> next;
+        // }
+        
+        while(s_half and f_half){
+            if(s_half->data != f_half -> data){
                 return false;
             }
-            slow = slow -> next;
-            check = check -> next;
+            s_half = s_half -> next;
+            f_half= f_half -> next;
         }
         
-        if(slow || check){
-            return false;
-        }
+        //  while(slow and check){
+        //     if(slow->data != check -> data){
+        //         return false;
+        //     }
+        //     slow = slow -> next;
+        //     check = check -> next;
+        // }
+        
+        
+        // if(slow || check){
+        //     return false;
+        // }
         
         return true;
     }
