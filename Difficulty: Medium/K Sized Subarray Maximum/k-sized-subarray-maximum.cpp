@@ -12,24 +12,29 @@ class Solution {
     // Function to find maximum of each subarray of size k.
     vector<int> max_of_subarrays(int k, vector<int> &arr) {
         // your code here
-        
-        priority_queue<pair<int , int>> pq;
-        
+        deque<int> dq;
         vector<int> ans;
         
-        for(int i = 0 ;  i < arr.size() ; i++ ){
-            
-            while(!pq.empty() and pq.top().second <= i - k ){
-                pq.pop();
-            }
-            
-            pq.push({arr[i] , i});
-            
-            if( i >= k - 1){
-                ans.push_back(pq.top().first);
-            }
+        for (int i = 0; i < arr.size(); i++) {
+        // Remove elements from the front of the deque that are out of the window
+        if (!dq.empty() && dq.front() == i - k) {
+            dq.pop_front();
         }
-        
+
+        // Remove elements from the back of the deque that are less than the current element
+        while (!dq.empty() && arr[dq.back()] < arr[i]) {
+            dq.pop_back();
+        }
+
+        // Add the current index to the deque
+        dq.push_back(i);
+
+        // If we've processed at least k elements, add the maximum to the answer
+        if (i >= k - 1) {
+            ans.push_back(arr[dq.front()]); // The maximum is at the front of the deque
+        }
+    }
+
         return ans;
     }
 };
