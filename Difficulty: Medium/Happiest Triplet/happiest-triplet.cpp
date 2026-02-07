@@ -28,7 +28,9 @@ class Solution {
                 prev_diff = diff;
                 prev_sum = sum;
                 ans = {a[i],b[j],c[k]};
-            }else if(mini == a[i]){
+            }
+            
+            if(mini == a[i]){
                 // explore the other options.
                 // why we conditioning minimum because we want our minimum value to the as close as possible to our maximum to get minimum difference.
                 i++;
